@@ -137,11 +137,11 @@
 			isa = PBXGroup;
 			children = (
 				DEB4EDD624801D8100111318 /* Login.swift */,
-				DE06146A248A267C00F828DA /* MovieDetails.swift */,
-				DE0351492482B93E000E375F /* Searchbar.swift */,
-				DEB4EDD824802E8700111318 /* MoviesList.swift */,
-				DE0351472482A788000E375F /* MovieRow.swift */,
 				DEB4EDEC248152A300111318 /* LoginFlow.swift */,
+				DE06146A248A267C00F828DA /* MovieDetails.swift */,
+				DE0351472482A788000E375F /* MovieRow.swift */,
+				DEB4EDD824802E8700111318 /* MoviesList.swift */,
+				DE0351492482B93E000E375F /* Searchbar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
