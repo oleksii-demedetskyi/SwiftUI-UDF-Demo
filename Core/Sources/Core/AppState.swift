@@ -8,6 +8,7 @@ public struct AppState {
     public var moviesList = MoviesList()
     public var searchResults = Searchbar()
     public var favoriteMovies = FavoriteMovies()
+    public var highResolutionImages = HighResolutionImages()
     
     public mutating func reduce(_ action: Action) {
         loginForm.reduce(action)
@@ -18,6 +19,7 @@ public struct AppState {
         moviesList.reduce(action)
         searchResults.reduce(action)
         favoriteMovies.reduce(action)
+        highResolutionImages.reduce(action)
     }
     
     public init() {}

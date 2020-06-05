@@ -30,4 +30,6 @@ public enum Action {
     
     case addToFavorite(Movie.Id)
     case removeFromFavorites(Movie.Id)
+    
+    case displayMovieDetails(Movie.Id)
 }

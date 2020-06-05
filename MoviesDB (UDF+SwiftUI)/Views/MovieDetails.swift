@@ -41,16 +41,17 @@ struct MovieDetails_Previews: PreviewProvider {
 }
 
 struct MovieDetailsConnector: Connector {
+    @Environment(\.imageCache) var cache
     let id: Movie.Id
     
-    func map(state: AppState, store: EnvironmentStore) -> MovieDetails {
+    func map(state: AppState, store: EnvironmentStore) -> some View {
         guard let movie = state.allMovies.byId[id] else {
             preconditionFailure()
         }
         
         return MovieDetails(
             title: movie.title,
-            image: nil,
+            image: cache.image(for: id),
             overview: movie.description,
             isFavorite: Binding(
                 get: { state.favoriteMovies.favorites.contains(self.id) },

@@ -25,9 +25,14 @@ class ImageLoader {
     }
     
     private var ids: [Movie.Id: UUID] = [:]
+    private var highResIds: [Movie.Id: UUID] = [:]
     
     func url(for poster: String) -> URL {
         URL(string: "https://image.tmdb.org/t/p/w92")!.appendingPathComponent(poster)
+    }
+    
+    func highResolutionUrl(for poster: String) -> URL {
+        URL(string: "https://image.tmdb.org/t/p/w500")!.appendingPathComponent(poster)
     }
     
     func observe(state: AppState) {
@@ -38,7 +43,7 @@ class ImageLoader {
             ids[movie] = UUID()
         }
         
-        let requests: [NetworkOperator.Request] = movies.compactMap { movieId in
+        var requests: [NetworkOperator.Request] = movies.compactMap { movieId in
             let uuid = ids[movieId]!
             
             guard let poster = state.allMovies.byId[movieId]!.posterPath else {
@@ -56,6 +61,27 @@ class ImageLoader {
             )
             
             return operatorRequest
+        }
+        
+        for movieId in state.highResolutionImages.ids where !highResIds.keys.contains(movieId) {
+            let uuid = UUID()
+            highResIds[movieId] = uuid
+            
+            guard let poster = state.allMovies.byId[movieId]!.posterPath else {
+                continue
+            }
+            
+            let urlRequest = URLRequest(
+                url: highResolutionUrl(for: poster)
+            )
+            
+            let request = NetworkOperator.Request(
+                id: uuid,
+                request: urlRequest,
+                handler: handler(movieId: movieId)
+            )
+            
+            requests.append(request)
         }
         
         network.process(props: requests)
