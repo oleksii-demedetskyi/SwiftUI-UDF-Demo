@@ -29,7 +29,7 @@ struct Root: View {
         store.subscribe(observer: imageLoader.asObserver)
         
         store.dispatch(action: .updateUsername("dalog"))
-        store.dispatch(action: .updatePassword("fyhzog-6mikzi-xaZduz"))
+        store.dispatch(action: .updatePassword("myhxoq-rummit-4tEwho"))
     }
     
     var body: some View {

@@ -1,13 +1,14 @@
 import SwiftUI
 import Core
 
-struct MoviesList<MovieRow: View, Searchbar: View>: View {
+struct MoviesList<MovieRow: View, Searchbar: View, Details: View>: View {
     let logout: Command
     let ids: [Movie.Id]
     let loadNextPage: Command?
     
     let row: (Movie.Id) -> MovieRow
     let searchbar: () -> Searchbar
+    let details: (Movie.Id) -> Details
     
     var body: some View {
         NavigationView {
@@ -16,7 +17,7 @@ struct MoviesList<MovieRow: View, Searchbar: View>: View {
                 
                 ForEach(ids, id:\.self) { id in
                     NavigationLink(
-                        destination: self.details(id: id),
+                        destination: self.details(id),
                         label: { self.row(id) }
                     )
                 }
@@ -49,7 +50,8 @@ struct MoviesList_Previews: PreviewProvider {
                 description: "Harry Potter has lived under the stairs at his aunt and uncle\'s house his whole life. But on his 11th birthday, he learns he\'s a powerful wizard -- with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school\'s kindly headmaster, Harry uncovers the truth about his parents\' deaths -- and about the villain who\'s to blame.",
                 poster: nil
             )},
-            searchbar: { Searchbar_Previews.previews }
+            searchbar: { Searchbar_Previews.previews },
+            details: { _ in EmptyView() }
         )
     }
 }
@@ -65,7 +67,8 @@ struct MoviesListConnector: Connector {
                     ? store.bind(.requestNextMoviesPage)
                     : nil,
                 row: { MovieRowConnector(id: $0) },
-                searchbar: { SearchbarConnector() }
+                searchbar: { SearchbarConnector() },
+                details: { id in DetailsConnector(id: id)}
             )
         }
         
@@ -77,7 +80,8 @@ struct MoviesListConnector: Connector {
                     ? store.bind(.requestNextSearchPage)
                     : nil,
                 row: { MovieRowConnector(id: $0) },
-                searchbar: { SearchbarConnector() }
+                searchbar: { SearchbarConnector() },
+                details: { id in DetailsConnector(id: id) }
             )
         }
         
@@ -85,6 +89,17 @@ struct MoviesListConnector: Connector {
             return moviesList()
         } else {
             return searchResults()
+        }
+    }
+}
+
+struct DetailsConnector: Connector {
+    let id: Movie.Id
+    
+    func map(state: AppState, store: EnvironmentStore) -> some View {
+        HStack {
+            Text(state.allMovies.byId[id]!.title)
+            
         }
     }
 }
