@@ -4,10 +4,22 @@ struct MovieDetails: View {
     let title: String
     let image: UIImage?
     let overview: String
+    let isFavorite: Binding<Bool>
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
+            HStack {
+                Text(title).font(.largeTitle)
+                Spacer()
+                Button(action: nop) {
+                    if (isFavorite.wrappedValue) {
+                        Image(systemName: "star.fill")
+                    } else {
+                        Image(systemName: "star")
+                    }
+                }
+            }
+            .padding([.leading, .trailing], 24)
             image.map { image in
                 Image(uiImage: image)
                 .resizable()
@@ -24,7 +36,8 @@ struct MovieDetails_Previews: PreviewProvider {
         MovieDetails(
             title: "Kill bill",
             image: nil,
-            overview: "A lot of text"
+            overview: "A lot of text",
+            isFavorite: State(initialValue: true).projectedValue
         )
     }
 }
@@ -40,7 +53,8 @@ struct MovieDetailsConnector: Connector {
         return MovieDetails(
             title: movie.title,
             image: nil,
-            overview: movie.description
+            overview: movie.description,
+            isFavorite: State(initialValue: true).projectedValue
         )
     }
 }
