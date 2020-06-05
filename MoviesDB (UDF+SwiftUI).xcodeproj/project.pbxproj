@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DE0351482482A788000E375F /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0351472482A788000E375F /* MovieRow.swift */; };
 		DE03514A2482B93E000E375F /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE0351492482B93E000E375F /* Searchbar.swift */; };
+		DE06146B248A267C00F828DA /* MovieDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE06146A248A267C00F828DA /* MovieDetails.swift */; };
 		DE4655492483E1A10004AD93 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4655482483E1A10004AD93 /* Types.swift */; };
 		DE46554B2483E2D40004AD93 /* ReduxStore in Frameworks */ = {isa = PBXBuildFile; productRef = DE46554A2483E2D40004AD93 /* ReduxStore */; };
 		DE46554D2483EE3D0004AD93 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46554C2483EE3D0004AD93 /* Command.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		DE0351472482A788000E375F /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
 		DE0351492482B93E000E375F /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
+		DE06146A248A267C00F828DA /* MovieDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetails.swift; sourceTree = "<group>"; };
 		DE4655482483E1A10004AD93 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		DE46554C2483EE3D0004AD93 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		DE778180247EEE1400FFC770 /* MoviesDB (UDF+SwiftUI).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoviesDB (UDF+SwiftUI).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				DEB4EDD624801D8100111318 /* Login.swift */,
+				DE06146A248A267C00F828DA /* MovieDetails.swift */,
 				DE0351492482B93E000E375F /* Searchbar.swift */,
 				DEB4EDD824802E8700111318 /* MoviesList.swift */,
 				DE0351472482A788000E375F /* MovieRow.swift */,
@@ -240,6 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DEB4EDE42481002A00111318 /* Store.swift in Sources */,
+				DE06146B248A267C00F828DA /* MovieDetails.swift in Sources */,
 				DE0351482482A788000E375F /* MovieRow.swift in Sources */,
 				DE778184247EEE1400FFC770 /* AppDelegate.swift in Sources */,
 				DE4655492483E1A10004AD93 /* Types.swift in Sources */,
