@@ -18,6 +18,7 @@ fileprivate struct Connected<V: View>: View {
     let map: (_ state: AppState, _ store: EnvironmentStore) -> V
     
     var body: V {
-        map(store.state, store)
+        print("render for \(V.self)")
+        return map(store.state, store)
     }
 }
