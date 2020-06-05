@@ -1,9 +1,21 @@
 import SwiftUI
 
+struct FavoriteIndicator: View {
+    let isFavorite: Bool
+    
+    var body: some View {
+        Image(systemName: isFavorite
+            ? "star.fill"
+            : "star"
+        )
+    }
+}
+
 struct MovieRow: View {
     let title: String
     let description: String
     let poster: UIImage?
+    let isFavorite: Bool = false
     
     var body: some View {
         HStack(alignment: .top) {
@@ -17,10 +29,14 @@ struct MovieRow: View {
             .frame(width: 92, height: 138)
             
             VStack(alignment: .leading) {
-                Text(title)
-                    .font(.headline)
-                    .lineLimit(2)
-                    .truncationMode(.tail)
+                HStack {
+                    Text(title)
+                        .font(.headline)
+                        .lineLimit(2)
+                        .truncationMode(.tail)
+                    Spacer()
+                    FavoriteIndicator(isFavorite: isFavorite)
+                }
                 Spacer()
                 Text(description)
                     .lineLimit(4)

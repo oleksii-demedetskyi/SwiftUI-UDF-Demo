@@ -4,10 +4,16 @@ struct MovieDetails: View {
     let title: String
     let image: UIImage?
     let overview: String
+    let isFavorite: Binding<Bool> = .constant(true)
     
     var body: some View {
         VStack {
-            Text(title).font(.largeTitle)
+            HStack {
+                Text(title).font(.largeTitle)
+                Button(action: toggleFavorite) {
+                    FavoriteIndicator(isFavorite: isFavorite.wrappedValue)
+                }
+            }
             image.map { image in
                 Image(uiImage: image)
                     .resizable()
@@ -16,6 +22,10 @@ struct MovieDetails: View {
             Text(overview)
             Spacer()
         }
+    }
+    
+    func toggleFavorite() {
+        isFavorite.wrappedValue.toggle()
     }
 }
 
