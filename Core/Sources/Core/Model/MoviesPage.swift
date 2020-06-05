@@ -1,4 +1,4 @@
-public struct MoviesPage {
+public struct MoviesPage: Equatable {
     public init(movies: [Movie], page: Int, totalPages: Int) {
         self.movies = movies
         self.page = page

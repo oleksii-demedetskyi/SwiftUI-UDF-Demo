@@ -43,7 +43,8 @@ struct MoviesList_Previews: PreviewProvider {
             row: { id in MovieRow(
                 title: "Harry Potter and the Philosopher\'s Stone",
                 description: "Harry Potter has lived under the stairs at his aunt and uncle\'s house his whole life. But on his 11th birthday, he learns he\'s a powerful wizard -- with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school\'s kindly headmaster, Harry uncovers the truth about his parents\' deaths -- and about the villain who\'s to blame.",
-                poster: nil
+                poster: nil,
+                isFavorite: true
             )},
             searchbar: { Searchbar_Previews.previews },
             movieDetails: { _ in MovieDetails_Previews.previews }

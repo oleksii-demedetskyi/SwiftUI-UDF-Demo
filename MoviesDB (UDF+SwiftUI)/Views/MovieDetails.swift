@@ -55,7 +55,12 @@ struct MovieDetailsConnector: Connector {
             overview: movie.description,
             isFavorite: Binding(
                 get: { state.favoriteMovies.favorites.contains(self.id) },
-                set: { store.dispatch($0 ? .removeFromFavorites(self.id) : .addToFavorite(self.id)) })
+                set: { isFavorite in
+                    store.dispatch(isFavorite
+                        ? .addToFavorite(self.id)
+                        : .removeFromFavorites(self.id)
+                    )
+            })
         )
     }
 }

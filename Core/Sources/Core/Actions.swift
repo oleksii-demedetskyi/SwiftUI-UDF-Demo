@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Action {
+public enum Action: Equatable {
     case updateUsername(String)
     case updatePassword(String)
     

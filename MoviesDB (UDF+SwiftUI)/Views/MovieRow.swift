@@ -15,7 +15,7 @@ struct MovieRow: View {
     let title: String
     let description: String
     let poster: UIImage?
-    let isFavorite: Bool = false
+    let isFavorite: Bool
     
     var body: some View {
         HStack(alignment: .top) {
@@ -55,6 +55,8 @@ struct MovieRowConnector: Connector {
         return MovieRow(
             title: movie.title,
             description: movie.description,
-            poster: imageCache.image(for: id))
+            poster: imageCache.image(for: id),
+            isFavorite: state.favoriteMovies.favorites.contains(id)
+        )
     }
 }

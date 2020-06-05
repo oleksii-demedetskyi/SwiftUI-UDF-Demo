@@ -1,4 +1,4 @@
-public struct Movie {
+public struct Movie: Equatable {
     public struct Id: Hashable {
         public init(value: Int) {
             self.value = value
