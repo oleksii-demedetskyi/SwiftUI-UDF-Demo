@@ -17,7 +17,7 @@ struct NetworkDriver {
     }
     
     func observe(state: AppState) {
-        var requests = [NetworkOperator.Request]()
+        var requests: NetworkOperator.Props = [:]
         
         defer {
             self.operator.process(props: requests)
@@ -28,14 +28,15 @@ struct NetworkDriver {
             request: Client.Request<Data>,
             onComplete: @escaping (Client.Response<Data>) -> Action) {
             
-            requests.append(NetworkOperator.Request(
-                id: id,
-                request: request.urlRequest,
-                handler: { data, response, error in
-                    let result = request.handler(data, response, error)
-                    let action = onComplete(result)
-                    self.store.dispatch(action: action)
-            }))
+            requests[id] = {
+                NetworkOperator.Request(
+                    request: request.urlRequest,
+                    handler: { data, response, error in
+                        let result = request.handler(data, response, error)
+                        let action = onComplete(result)
+                        self.store.dispatch(action: action)
+                })
+            }
         }
         
         switch state.loginFlow {

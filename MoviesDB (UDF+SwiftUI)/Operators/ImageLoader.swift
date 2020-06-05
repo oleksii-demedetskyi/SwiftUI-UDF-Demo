@@ -26,39 +26,34 @@ class ImageLoader {
     
     private var ids: [Movie.Id: UUID] = [:]
     
-    func url(for poster: String) -> URL {
-        URL(string: "https://image.tmdb.org/t/p/w92")!.appendingPathComponent(poster)
-    }
-    
     func observe(state: AppState) {
+        var requests: NetworkOperator.Props = [:]
+        
+        defer {
+            network.process(props: requests)
+        }
+        
         let movies = state.allMovies.byId.keys
         
-        // Generate uuids for request mapping
         for movie in movies where !ids.keys.contains(movie) {
-            ids[movie] = UUID()
-        }
-        
-        let requests: [NetworkOperator.Request] = movies.compactMap { movieId in
-            let uuid = ids[movieId]!
+            // Generate uuids for request mapping
+            let id = UUID()
+            ids[movie] = id
             
-            guard let poster = state.allMovies.byId[movieId]!.posterPath else {
-                return nil
+            guard let poster = state.allMovies.byId[movie]!.posterPath else {
+                continue
             }
             
-            let urlRequest = URLRequest(
-                url: url(for: poster)
-            )
-            
-            let operatorRequest = NetworkOperator.Request(
-                id: uuid,
-                request: urlRequest,
-                handler: handler(movieId: movieId)
-            )
-            
-            return operatorRequest
+            requests[id] = {
+                let url = URL(string: "https://image.tmdb.org/t/p/w92")!
+                    .appendingPathComponent(poster)
+                
+                return NetworkOperator.Request(
+                    request: URLRequest(url: url),
+                    handler: self.handler(movieId: movie)
+                )
+            }
         }
-        
-        network.process(props: requests)
     }
     
     func handler(movieId: Movie.Id) -> (Data?, URLResponse?, Error?) -> () {

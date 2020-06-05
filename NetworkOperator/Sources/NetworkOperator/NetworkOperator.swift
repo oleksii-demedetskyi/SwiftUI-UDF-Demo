@@ -12,14 +12,14 @@ public class NetworkOperator {
         self.queue = queue
     }
     
-    public typealias Props = [Request]
+    public typealias Props = [UUID: () -> Request]
     
     public func process(props: Props) {
         var remainedActiveRequestsIds = Set(activeRequests.keys)
         
-        for request in props {
-            process(request: request)
-            remainedActiveRequestsIds.remove(request.id)
+        for (id, request) in props {
+            process(requestBuilder: request, for: id)
+            remainedActiveRequestsIds.remove(id)
         }
         
         for cancelledRequestId in remainedActiveRequestsIds {
@@ -30,15 +30,16 @@ public class NetworkOperator {
     private var activeRequests: [UUID: (request: Request, task: URLSessionDataTask)] = [:]
     private var completedRequests: Set<UUID> = []
     
-    private func process(request: Request) {
-        if completedRequests.contains(request.id) {
+    private func process(requestBuilder: () -> Request, for id: UUID) {
+        if completedRequests.contains(id) {
             return
         }
         
-        if activeRequests.keys.contains(request.id) {
-            activeRequests[request.id]!.request = request // Update request to its latest version
+        if activeRequests.keys.contains(id) {
+            // Request is still active - do nothing
         } else {
             // Create new task
+            let request = requestBuilder()
             if (enableTracing) {
                 print("Network:\t\t start \(request.request)")
                 if let data = request.request.httpBody {
@@ -47,23 +48,23 @@ public class NetworkOperator {
             }
             
             let task = session.dataTask(with: request.request) { data, response, error in
-                self.queue.asyncAfter(deadline: .now()) {
-                    self.complete(request: request, data: data, response: response, error: error)
+                self.queue.async {
+                    self.complete(id: id, data: data, response: response, error: error)
                 }
             }
             
-            activeRequests[request.id] = (request, task) // Store it to list of active tasks
+            activeRequests[id] = (request, task) // Store it to list of active tasks
             task.resume() // Begin task execution
         }
     }
     
-    private func complete(request: Request, data: Data?, response: URLResponse?, error: Error?) {
-        guard let currentRequest = activeRequests[request.id] else {
+    private func complete(id: UUID, data: Data?, response: URLResponse?, error: Error?) {
+        guard let currentRequest = activeRequests[id] else {
             preconditionFailure("Request not found")
         }
         
-        activeRequests[request.id] = nil
-        completedRequests.insert(request.id)
+        activeRequests[id] = nil
+        completedRequests.insert(id)
         
         currentRequest.request.handler(data, response, error)
     }
