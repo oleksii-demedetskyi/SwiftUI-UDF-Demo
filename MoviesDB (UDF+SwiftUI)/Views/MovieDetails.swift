@@ -28,3 +28,19 @@ struct MovieDetails_Previews: PreviewProvider {
         )
     }
 }
+
+struct MovieDetailsConnector: Connector {
+    let id: Movie.Id
+    
+    func map(state: AppState, store: EnvironmentStore) -> MovieDetails {
+        guard let movie = state.allMovies.byId[id] else {
+            preconditionFailure()
+        }
+        
+        return MovieDetails(
+            title: movie.title,
+            image: nil,
+            overview: movie.description
+        )
+    }
+}
