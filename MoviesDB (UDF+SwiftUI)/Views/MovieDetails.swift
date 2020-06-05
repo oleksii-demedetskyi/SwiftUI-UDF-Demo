@@ -4,7 +4,7 @@ struct MovieDetails: View {
     let title: String
     let image: UIImage?
     let overview: String
-    let isFavorite: Binding<Bool> = .constant(true)
+    let isFavorite: Binding<Bool>
     
     var body: some View {
         VStack {
@@ -34,7 +34,8 @@ struct MovieDetails_Previews: PreviewProvider {
         MovieDetails(
             title: "Kill bill",
             image: nil,
-            overview: "A very long text"
+            overview: "A very long text",
+            isFavorite: .constant(true)
         )
     }
 }
@@ -50,7 +51,10 @@ struct MovieDetailsConnector: Connector {
         return MovieDetails(
             title: movie.title,
             image: nil,
-            overview: movie.description
+            overview: movie.description,
+            isFavorite: Binding(
+                get: { state.favoriteMovies.favorites.contains(self.id) },
+                set: { store.dispatch($0 ? .removeFromFavorites(self.id) : .addToFavorite(self.id)) })
         )
     }
 }

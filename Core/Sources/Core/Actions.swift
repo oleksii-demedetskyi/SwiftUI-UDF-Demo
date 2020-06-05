@@ -27,4 +27,7 @@ public enum Action {
     case requestNextSearchPage
     
     case didLoadPoster(Movie.Id)
+    
+    case addToFavorite(Movie.Id)
+    case removeFromFavorites(Movie.Id)
 }
