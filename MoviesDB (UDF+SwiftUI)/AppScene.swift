@@ -1,10 +1,10 @@
 import SwiftUI
-
 import NetworkOperator
 import MoviesDBAPI
 import Core
 
-struct Root: View {
+@main
+struct MyMovies: App {
     @Environment(\.imageCache) var imageCache
     
     let store = Store(initial: AppState()) { state, action in
@@ -32,9 +32,11 @@ struct Root: View {
         store.dispatch(action: .updatePassword("myhxoq-rummit-4tEwho"))
     }
     
-    var body: some View {
-        StoreProvider(store: store) {
-            Text("???")
+    var body: some Scene {
+        WindowGroup {
+            StoreProvider(store: store) {
+                Text("???")
+            }
         }
     }
 }
