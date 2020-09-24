@@ -32,11 +32,17 @@ struct MyMovies: App {
         store.dispatch(action: .updatePassword("myhxoq-rummit-4tEwho"))
     }
     
+<<<<<<< ours:MoviesDB (UDF+SwiftUI)/AppScene.swift
     var body: some Scene {
         WindowGroup {
             StoreProvider(store: store) {
                 Text("???")
             }
+=======
+    var body: some View {
+        StoreProvider(store: store) {
+            LoginFlowConnector()
+>>>>>>> theirs:MoviesDB (UDF+SwiftUI)/Root.swift
         }
     }
 }

@@ -33,3 +33,17 @@ struct Searchbar_Previews: PreviewProvider {
         }
     }
 }
+
+struct SearchbarConnector: Connector {
+    func map(state: AppState, store: EnvironmentStore) -> some View {
+        Searchbar(
+            query: Binding(
+                get: { state.searchResults.query },
+                set: store.bind(Action.updateSearchQuery)
+            ),
+            cancel: state.searchResults.canClearSearch
+                ? store.bind(.clearSearchQuery)
+                : nil
+        )
+    }
+}

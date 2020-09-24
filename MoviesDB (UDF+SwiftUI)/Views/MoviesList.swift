@@ -53,3 +53,38 @@ struct MoviesList_Previews: PreviewProvider {
         )
     }
 }
+
+struct MoviesListConnector: Connector {
+    
+    func map(state: AppState, store: EnvironmentStore) -> some View {
+        let moviesList = {
+            MoviesList(
+                logout: store.bind(.logout),
+                ids: state.moviesList.ids,
+                loadNextPage: state.moviesList.canRequestNextPage
+                    ? store.bind(.requestNextMoviesPage)
+                    : nil,
+                row: { MovieRowConnector(id: $0) },
+                searchbar: { SearchbarConnector() }
+            )
+        }
+        
+        let searchResults = {
+            MoviesList(
+                logout: store.bind(.logout),
+                ids: state.searchResults.results,
+                loadNextPage: state.searchResults.canRequestNextPage
+                    ? store.bind(.requestNextSearchPage)
+                    : nil,
+                row: { MovieRowConnector(id: $0) },
+                searchbar: { SearchbarConnector() }
+            )
+        }
+        
+        if state.searchResults.query.isEmpty {
+            return moviesList()
+        } else {
+            return searchResults()
+        }
+    }
+}
