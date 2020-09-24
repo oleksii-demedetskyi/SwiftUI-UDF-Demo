@@ -25,6 +25,7 @@ struct MoviesList<MovieRow: View, Searchbar: View>: View {
                     Text("Loading...").onAppear(perform: loadNextPage)
                 }
             }
+            .listStyle(PlainListStyle())
             .navigationBarTitle("All movies")
             .navigationBarItems(trailing: Button(action: logout) {
                 Text("Logout")
