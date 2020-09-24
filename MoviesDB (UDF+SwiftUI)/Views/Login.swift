@@ -69,36 +69,3 @@ struct Login_Previews: PreviewProvider {
         )
     }
 }
-
-import Core
-
-// TODO: 1 - Implement login flow connector
-struct LoginConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
-        Login(
-            username: Binding(
-                get: { state.loginForm.username },
-                set: store.bind(Action.updateUsername)),
-            
-            password: Binding(
-                get: { state.loginForm.password },
-                set: store.bind(Action.updatePassword)),
-            
-            loginAction: state.loginForm.isCredentialsOk
-                ? .available(store.bind(.login))
-                : .unavailable,
-            loginProgress: state.loginProgress)
-    }
-}
-
-extension AppState {
-    var loginProgress: Login.LoginProgress {
-        switch loginStatus {
-        case .failed: return .failed
-        case .inProgress: return .active
-        case .invalidCredentials: return .unauthorized
-        case .none: return .none
-        case .success: return .none
-        }
-    }
-}

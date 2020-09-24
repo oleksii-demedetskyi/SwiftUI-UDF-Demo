@@ -29,16 +29,3 @@ struct MovieRow: View {
         }
     }
 }
-
-struct MovieRowConnector: Connector {
-    @Environment(\.imageCache) var imageCache
-    let id: Movie.Id
-    
-    func map(state: AppState, store: EnvironmentStore) -> some View {
-        let movie = state.allMovies.byId[id]!
-        return MovieRow(
-            title: movie.title,
-            description: movie.description,
-            poster: imageCache.image(for: id))
-    }
-}

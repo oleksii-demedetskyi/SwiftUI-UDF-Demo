@@ -34,7 +34,7 @@ struct Root: View {
     
     var body: some View {
         StoreProvider(store: store) {
-            LoginFlowConnector()
+            Text("???")
         }
     }
 }

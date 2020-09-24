@@ -26,14 +26,3 @@ struct LoginFlow_Previews: PreviewProvider {
         )
     }
 }
-
-struct LoginFlowConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
-        LoginFlow(
-            isLoggedIn: state.isLoggedIn,
-            login: { LoginConnector() },
-            content: { MoviesListConnector() }
-        )
-    }
-}
-
