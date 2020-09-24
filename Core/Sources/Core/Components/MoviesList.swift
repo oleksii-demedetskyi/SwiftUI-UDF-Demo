@@ -19,13 +19,13 @@ public struct MoviesList {
     mutating func reduce(_ action: Action) {
         switch action {
             
-        case let .receiveMoviesPage(page):
+        case let action as ReceiveMoviesPage:
             request = nil
-            ids += page.movies.map(\.id)
-            currentPage = page.page
-            totalPages = page.totalPages
+            ids += action.page.movies.map(\.id)
+            currentPage = action.page.page
+            totalPages = action.page.totalPages
             
-        case .requestNextMoviesPage where request == nil:
+        case is RequestNextMoviesPage where request == nil:
             request = UUID()
             
         default: break

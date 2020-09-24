@@ -4,11 +4,11 @@ public struct Session {
     
     mutating func reduce(_ action: Action) {
         switch action {
-        case .receiveToken(let value): token = value
-        case .receiveSession(let value): session = value
-        case .logout: self = Session()
-
-        default: break
+            case let action as ReceiveToken: token = action.token
+            case let action as ReceiveSession: session = action.session
+            case is Logout: self = Session()
+                
+            default: break
         }
     }
 }

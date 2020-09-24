@@ -8,10 +8,10 @@ public struct LoginForm {
     
     mutating func reduce(_ action: Action) {
         switch action {
-        case .updateUsername(let value): username = value
-        case .updatePassword(let value): password = value
-        case .logout: self = LoginForm()
-        default: break
+            case let action as UpdateUsername: username = action.username
+            case let action as UpdatePassword: password = action.password
+            case is Logout: self = Self()
+            default: break
         }
     }
 }

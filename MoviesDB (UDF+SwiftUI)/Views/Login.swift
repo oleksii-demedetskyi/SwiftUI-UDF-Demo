@@ -78,14 +78,14 @@ struct LoginConnector: Connector {
         Login(
             username: Binding(
                 get: { state.loginForm.username },
-                set: store.bind(Action.updateUsername)),
+                set: store.bind(UpdateUsername.init)),
             
             password: Binding(
                 get: { state.loginForm.password },
-                set: store.bind(Action.updatePassword)),
+                set: store.bind(UpdatePassword.init)),
             
             loginAction: state.loginForm.isCredentialsOk
-                ? .available(store.bind(.login))
+                ? .available(store.bind(Core.Login()))
                 : .unavailable,
             loginProgress: state.loginProgress)
     }

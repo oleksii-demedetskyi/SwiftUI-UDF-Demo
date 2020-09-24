@@ -43,8 +43,8 @@ struct NetworkDriver {
         case .token(let id):
             fire(id, request: client.getNewToken()) { response in
                 switch response {
-                case .success(let result): return .receiveToken(result.requestToken)
-                default: return .tokenRequestFailed
+                    case .success(let result): return ReceiveToken(token: result.requestToken)
+                default: return TokenRequestFailed()
                 }
             }
         case .validation(let id):
@@ -54,9 +54,9 @@ struct NetworkDriver {
                 requestToken: state.session.token!)
             fire(id, request: client.validateUser(body: body)) { response in
                 switch response {
-                case .success: return .tokenValidated
-                case .unauthorized: return .invalidCredentials
-                case .failed: return .tokenValidationFailed
+                case .success: return TokenValidated()
+                case .unauthorized: return InvalidCredentials()
+                case .failed: return TokenValidationFailed()
                 default: preconditionFailure("Unexpected case")
                 }
             }
@@ -64,8 +64,8 @@ struct NetworkDriver {
             let body = Client.CreateSessionBody(requestToken: state.session.token!)
             fire(id, request: client.createSession(body: body)) { response in
                 switch response {
-                case .success(let result): return .receiveSession(result.sessionId)
-                default: return .sessionRequestFailed
+                    case .success(let result): return ReceiveSession(session: result.sessionId)
+                default: return SessionRequestFailed()
                 }
             }
         }
@@ -76,7 +76,7 @@ struct NetworkDriver {
                     preconditionFailure("Some error")
                 }
                 
-                return .receiveMoviesPage(result.asMoviesPage)
+                return ReceiveMoviesPage(page: result.asMoviesPage)
             }
         }
         
@@ -85,8 +85,8 @@ struct NetworkDriver {
                 by: state.searchResults.query,
                 page: state.searchResults.nextPage)) { response in
                     switch response {
-                    case .success(let result): return .receiveSearchPage(result.asMoviesPage)
-                    case .cancelled: return .searchRequestWasCancelled
+                        case .success(let result): return ReceiveSearchPage(page: result.asMoviesPage)
+                    case .cancelled: return SearchRequestWasCancelled()
                     default : preconditionFailure("Some error")
                     }
             }

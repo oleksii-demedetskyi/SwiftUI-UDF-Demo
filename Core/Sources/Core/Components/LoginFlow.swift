@@ -9,14 +9,14 @@ public enum LoginFlow {
     mutating func reduce(_ action: Action) {
         switch action {
             
-        case .login: self = .token(UUID())
-        case .receiveToken: self = .validation(UUID())
-        case .tokenValidated: self = .session(UUID())
-        case .tokenRequestFailed: self = .none
-        case .invalidCredentials: self = .none
-        case .tokenValidationFailed: self = .none
-        case .receiveSession: self = .none
-        case .sessionRequestFailed: self = .none
+        case is Login: self = .token(UUID())
+        case is ReceiveToken: self = .validation(UUID())
+        case is TokenValidated: self = .session(UUID())
+        case is TokenRequestFailed: self = .none
+        case is InvalidCredentials: self = .none
+        case is TokenValidationFailed: self = .none
+        case is ReceiveSession: self = .none
+        case is SessionRequestFailed: self = .none
         
         default: break
         }
@@ -35,13 +35,13 @@ public enum LoginStatus {
     mutating func reduce(_ action: Action) {
         switch action {
             
-        case .login: self = .inProgress
-        case .tokenRequestFailed: self = .failed
-        case .invalidCredentials: self = .invalidCredentials
-        case .tokenValidationFailed: self = .failed
-        case .receiveSession: self = .success
-        case .sessionRequestFailed: self = .failed
-        case .logout: self = .none
+        case is Login: self = .inProgress
+        case is TokenRequestFailed: self = .failed
+        case is InvalidCredentials: self = .invalidCredentials
+        case is TokenValidationFailed: self = .failed
+        case is ReceiveSession: self = .success
+        case is SessionRequestFailed: self = .failed
+        case is Logout: self = .none
             
         default: break }
     }

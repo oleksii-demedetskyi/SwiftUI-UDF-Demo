@@ -75,7 +75,7 @@ class ImageLoader {
                 self.cache.store(poster: image, for: movieId)
             }
             
-            self.store.dispatch(action: .didLoadPoster(movieId))
+            self.store.dispatch(action: DidLoadPoster(movie: movieId))
         }
     }
 }

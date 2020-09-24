@@ -55,15 +55,15 @@ struct MoviesList_Previews: PreviewProvider {
     }
 }
 
+import Core
 struct MoviesListConnector: Connector {
-    
     func map(state: AppState, store: EnvironmentStore) -> some View {
         let moviesList = {
             MoviesList(
-                logout: store.bind(.logout),
+                logout: store.bind(Logout()),
                 ids: state.moviesList.ids,
                 loadNextPage: state.moviesList.canRequestNextPage
-                    ? store.bind(.requestNextMoviesPage)
+                    ? store.bind(RequestNextMoviesPage())
                     : nil,
                 row: { MovieRowConnector(id: $0) },
                 searchbar: { SearchbarConnector() }
@@ -72,10 +72,10 @@ struct MoviesListConnector: Connector {
         
         let searchResults = {
             MoviesList(
-                logout: store.bind(.logout),
+                logout: store.bind(Logout()),
                 ids: state.searchResults.results,
                 loadNextPage: state.searchResults.canRequestNextPage
-                    ? store.bind(.requestNextSearchPage)
+                    ? store.bind(RequestNextSearchPage())
                     : nil,
                 row: { MovieRowConnector(id: $0) },
                 searchbar: { SearchbarConnector() }

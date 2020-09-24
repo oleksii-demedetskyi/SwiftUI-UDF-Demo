@@ -30,8 +30,8 @@ struct MyMovies: App {
         store.subscribe(observer: networkDriver.asObserver)
         store.subscribe(observer: imageLoader.asObserver)
         
-        store.dispatch(action: .updateUsername("dalog"))
-        store.dispatch(action: .updatePassword("myhxoq-rummit-4tEwho"))
+        store.dispatch(action: UpdateUsername(username: "dalog"))
+        store.dispatch(action: UpdatePassword(password: "myhxoq-rummit-4tEwho"))
     }
     
     var body: some Scene {
