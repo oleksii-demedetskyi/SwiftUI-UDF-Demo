@@ -3,6 +3,8 @@ import NetworkOperator
 import MoviesDBAPI
 import Core
 
+
+
 @main
 struct MyMovies: App {
     @Environment(\.imageCache) var imageCache

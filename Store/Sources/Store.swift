@@ -13,7 +13,7 @@ public class Store<State, Action> {
     public private(set) var state: State
     
     public func dispatch(action: Action) {
-        queue.async {
+        queue.sync {
             self.reducer(&self.state, action)
             self.observers.forEach(self.notify)
         }
@@ -22,7 +22,7 @@ public class Store<State, Action> {
     private var observers: Set<Observer<State>> = []
     
     public func subscribe(observer: Observer<State>) {
-        queue.async {
+        queue.sync {
             self.observers.insert(observer)
             self.notify(observer)
         }
@@ -30,12 +30,15 @@ public class Store<State, Action> {
     
     /// WARNING: This method must be called on internal queue
     private func notify(_ observer: Observer<State>) {
-        let status = observer.queue.sync {
-            observer.observe(state)
-        }
-        
-        if case .dead = status {
-            observers.remove(observer)
+        let state = self.state
+        observer.queue.async {
+            let status = observer.observe(state)
+            
+            if case .dead = status {
+                self.queue.async {
+                    self.observers.remove(observer)
+                }
+            }
         }
     }
 }
