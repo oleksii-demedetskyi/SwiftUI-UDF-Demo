@@ -12,7 +12,7 @@
 		DE4655492483E1A10004AD93 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4655482483E1A10004AD93 /* Types.swift */; };
 		DE46554B2483E2D40004AD93 /* ReduxStore in Frameworks */ = {isa = PBXBuildFile; productRef = DE46554A2483E2D40004AD93 /* ReduxStore */; };
 		DE46554D2483EE3D0004AD93 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE46554C2483EE3D0004AD93 /* Command.swift */; };
-		DE778186247EEE1400FFC770 /* AppScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE778185247EEE1400FFC770 /* AppScene.swift */; };
+		DE778186247EEE1400FFC770 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE778185247EEE1400FFC770 /* App.swift */; };
 		DE77818A247EEE1800FFC770 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE778189247EEE1800FFC770 /* Assets.xcassets */; };
 		DE77818D247EEE1800FFC770 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE77818C247EEE1800FFC770 /* Preview Assets.xcassets */; };
 		DE778190247EEE1800FFC770 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE77818E247EEE1800FFC770 /* LaunchScreen.storyboard */; };
@@ -36,7 +36,7 @@
 		DE4655482483E1A10004AD93 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		DE46554C2483EE3D0004AD93 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		DE778180247EEE1400FFC770 /* MoviesDB (UDF+SwiftUI).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MoviesDB (UDF+SwiftUI).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE778185247EEE1400FFC770 /* AppScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScene.swift; sourceTree = "<group>"; };
+		DE778185247EEE1400FFC770 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		DE778189247EEE1800FFC770 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE77818C247EEE1800FFC770 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DE77818F247EEE1800FFC770 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 				DEB4EDE924811FEC00111318 /* Operators */,
 				DEB4EDE22481001C00111318 /* Redux */,
 				DEB4EDD424801D6700111318 /* Views */,
-				DE778185247EEE1400FFC770 /* AppScene.swift */,
+				DE778185247EEE1400FFC770 /* App.swift */,
 				DE778189247EEE1800FFC770 /* Assets.xcassets */,
 				DE77818E247EEE1800FFC770 /* LaunchScreen.storyboard */,
 				DE778191247EEE1800FFC770 /* Info.plist */,
@@ -236,7 +236,7 @@
 				DEB4EDE42481002A00111318 /* Store.swift in Sources */,
 				DE0351482482A788000E375F /* MovieRow.swift in Sources */,
 				DE4655492483E1A10004AD93 /* Types.swift in Sources */,
-				DE778186247EEE1400FFC770 /* AppScene.swift in Sources */,
+				DE778186247EEE1400FFC770 /* App.swift in Sources */,
 				DEB4EDF12481C13800111318 /* ImageCache.swift in Sources */,
 				DE46554D2483EE3D0004AD93 /* Command.swift in Sources */,
 				DEB4EDE8248100EF00111318 /* StoreProvider.swift in Sources */,
