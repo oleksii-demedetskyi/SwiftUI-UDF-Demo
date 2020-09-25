@@ -36,14 +36,14 @@ struct Searchbar_Previews: PreviewProvider {
 import Core
 
 struct SearchbarConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
+    func map(graph: Graph) -> some View {
         Searchbar(
             query: Binding(
-                get: { state.searchResults.query },
-                set: store.bind(UpdateSearchQuery.init)
+                get: { graph.search.query },
+                set: { graph.search.query = $0 }
             ),
-            cancel: state.searchResults.canClearSearch
-                ? store.bind(ClearSearchQuery())
+            cancel: graph.search.canClear
+                ? graph.search.clear
                 : nil
         )
     }

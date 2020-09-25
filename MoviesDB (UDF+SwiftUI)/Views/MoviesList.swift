@@ -57,13 +57,13 @@ struct MoviesList_Previews: PreviewProvider {
 
 import Core
 struct MoviesListConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
+    func map(graph: Graph) -> some View {
         let moviesList = {
             MoviesList(
-                logout: store.bind(Logout()),
-                ids: state.moviesList.ids,
-                loadNextPage: state.moviesList.canRequestNextPage
-                    ? store.bind(RequestNextMoviesPage())
+                logout: graph.session.logout,
+                ids: graph.moviesList.ids,
+                loadNextPage: graph.moviesList.page.hasNextPage
+                    ? graph.moviesList.page.loadNextPage
                     : nil,
                 row: { MovieRowConnector(id: $0) },
                 searchbar: { SearchbarConnector() }
@@ -72,17 +72,17 @@ struct MoviesListConnector: Connector {
         
         let searchResults = {
             MoviesList(
-                logout: store.bind(Logout()),
-                ids: state.searchResults.results,
-                loadNextPage: state.searchResults.canRequestNextPage
-                    ? store.bind(RequestNextSearchPage())
+                logout: graph.session.logout,
+                ids: graph.search.ids,
+                loadNextPage: graph.search.page.hasNextPage
+                    ? graph.search.page.loadNextPage
                     : nil,
                 row: { MovieRowConnector(id: $0) },
                 searchbar: { SearchbarConnector() }
             )
         }
         
-        if state.searchResults.query.isEmpty {
+        if graph.search.query.isEmpty {
             return moviesList()
         } else {
             return searchResults()

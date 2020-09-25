@@ -74,26 +74,24 @@ import Core
 
 // TODO: 1 - Implement login flow connector
 struct LoginConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
+    func map(graph: Graph) -> some View {
         Login(
             username: Binding(
-                get: { state.loginForm.username },
-                set: store.bind(UpdateUsername.init)),
-            
+                get: { graph.loginForm.username },
+                set: { graph.loginForm.username = $0 }),
             password: Binding(
-                get: { state.loginForm.password },
-                set: store.bind(UpdatePassword.init)),
-            
-            loginAction: state.loginForm.isCredentialsOk
-                ? .available(store.bind(Core.Login()))
+                get: { graph.loginForm.password },
+                set: { graph.loginForm.password = $0 }),
+            loginAction: graph.loginForm.isCredentialsOK
+                ? .available(graph.loginForm.login)
                 : .unavailable,
-            loginProgress: state.loginProgress)
+            loginProgress: graph.loginForm.loginProgress)
     }
 }
 
-extension AppState {
+extension LoginFormNode {
     var loginProgress: Login.LoginProgress {
-        switch loginStatus {
+        switch progress {
         case .failed: return .failed
         case .inProgress: return .active
         case .invalidCredentials: return .unauthorized

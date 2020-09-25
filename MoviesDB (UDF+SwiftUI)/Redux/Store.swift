@@ -1,37 +1,21 @@
 import SwiftUI
 
 class EnvironmentStore: ObservableObject {
-    let store: Store
+    @Published private (set) var graph: Graph
     
-    @Published private (set) var state: AppState
+    let store: Store
     
     init(store: Store) {
         self.store = store
-        self.state = store.state
+        self.graph = Graph(state: store.state, dispatch: store.dispatch(action:))
         
         store.subscribe(observer: asObserver)
     }
     
-    func dispatch(_ action: Action) {
-        store.dispatch(action: action)
-    }
-    
     private var asObserver: Observer {
         Observer(queue: .main) { state in
-            self.state = state
+            self.graph = Graph(state: state, dispatch: self.store.dispatch(action:))
             return .active
-        }
-    }
-    
-    func bind(_ action: Action) -> Command {
-        return {
-            self.dispatch(action)
-        }
-    }
-    
-    func bind<T>(_ action: @escaping (T) -> Action) -> CommandWith<T> {
-        return { value in
-            self.dispatch(action(value))
         }
     }
 }

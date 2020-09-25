@@ -28,9 +28,9 @@ struct LoginFlow_Previews: PreviewProvider {
 }
 
 struct LoginFlowConnector: Connector {
-    func map(state: AppState, store: EnvironmentStore) -> some View {
+    func map(graph: Graph) -> some View {
         LoginFlow(
-            isLoggedIn: state.isLoggedIn,
+            isLoggedIn: graph.session.isActive,
             login: { LoginConnector() },
             content: { MoviesListConnector() }
         )

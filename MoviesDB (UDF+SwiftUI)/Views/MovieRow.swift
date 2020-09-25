@@ -34,8 +34,8 @@ struct MovieRowConnector: Connector {
     @Environment(\.imageCache) var imageCache
     let id: Movie.Id
     
-    func map(state: AppState, store: EnvironmentStore) -> some View {
-        let movie = state.allMovies.byId[id]!
+    func map(graph: Graph) -> some View {
+        let movie = graph.movie(id: id)
         return MovieRow(
             title: movie.title,
             description: movie.description,
