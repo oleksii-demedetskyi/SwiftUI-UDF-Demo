@@ -7,5 +7,5 @@ public struct SessionNode {
     
     public func logout() { graph.dispatch(Logout()) }
     
-    public var isActive: Bool { graph.state.isLoggedIn }
+    public var isActive: Bool { graph.state.session.token != nil && graph.state.session.session != nil }
 }
